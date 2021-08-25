@@ -1,0 +1,170 @@
+---
+css: style_eoe.css
+pagetitle: "EOE julio 2021"
+output: html_document
+---
+
+```{r config, include=FALSE}
+library(dplyr)
+library(stringr)
+library(lubridate)
+library(dygraphs)
+library(kableExtra)
+library(formattable)
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, echo = FALSE)
+
+# Cambiar esta ruta -- -- -- --- 
+load(here::here("eoe", "outputs", "2021", "07. julio", "ws_julio_2021"))
+sparkline::sparkline(0)
+```
+
+<!-- Header del documento -->
+
+
+::: {.header}
+::: {.imagen}
+<img src="img/bcrd_squared.png" alt="drawing"/>
+:::
+
+::: {.title}
+<h2>
+Banco Central de la República Dominicana <br> 
+Encuesta de Opinión Empresarial
+</h2>
+
+Julio 2021
+:::
+:::
+
+<hr class="head-ruler">
+
+<!-- ---------------------------------------------------------------------------------------------- -->
+
+### Mejora en la situación económica del sector industrial
+
+::: {.first-container}
+::: {.left}
+El indicador sobre la situación económica muestra una recuperación en en el mes de julio, tras la interrupción, el mes anterior, de la tendencia positiva que llevaba el desde principios de año. Con esta esta mejora, el saldo de opinión se mantiene positivo (42.9), con una considerable proporción de empresas indicando que su situación económica mejoró (46.3%) o se mantuvo igual (50.0%).
+
+Por otro lado, el indicador sobre el nivel de inventario marcó una variación negativa de 2.67 puntos, para un saldo de 4.0 que representa un aumento en las existencias del sector.
+:::
+
+::: {.right}
+#### Situación económica del mes actual
+
+```{r, fig.height=3, fig.width=5}
+dyg_sit_econ |> dygraphs::dyLimit(limit = 0, color = 'gray')
+```
+:::
+:::
+
+<!-- ---------------------------------------------------------------------------------------------- -->
+
+### Se atenua la reducción de la produccucción y los pedidos
+
+------------------------------------------------------------------------
+
+::: {.second-container}
+::: {.left}
+
+En comparación con el mes anterior, los principales indicadores del sector mostraron una evolución ligeramente desfavorable. Los pedidos contrastan en este sentido, al registrar un aumento de 21.9 puntos respecto al mes anterior y concluir con un saldo de 0.0 que se interpreta como estabilidad en la variable.
+
+Por su parte, la producción mantiene su desaceleración, aunque a un ritmo menor que en junio. Esta vez el balance es de -14.3, para una reducción de 1.8 puntos.
+
+Esta situación se extiende también al indicador de empleo, que en julio mentuvo niveles ligeramente inferiores que el mes anterior, al pasar de -6.25 a -7.14.
+
+:::
+
+::: {.right}
+#### Producción y pedidos respecto al mes anterior
+
+```{r, fig.height=3, fig.width=5}
+dyg_produccion_pedidos |> dygraphs::dyLimit(limit = 0, color = 'gray')
+```
+:::
+:::
+
+<!-- ----------------------------------------------------------------------------- -->
+
+### Sector manufacturero con expectativas favorables
+
+------------------------------------------------------------------------
+
+::: {.third-container}
+::: {.left .first}
+
+En el mes de julio las expectativas para las distintas variables del sector industrial mostraron resultados positivos y superiores respecto a los observados el mes anterior, revelando una postura más optimista del empresariado de cara a los próximos meses.
+
+En este sentido, el saldo que resume las expectativas sobre la situación económica de los próximos seis meses registró un saldo de 60.8, para una aumento de 4.46 puntos respecto a junio (56.5).
+:::
+
+::: {.right .first}
+#### Expectativas situación económica (próximos 6 meses)
+
+```{r, fig.height=3, fig.width=5}
+dyg_sit_econ_exp |> dygraphs::dyLimit(limit = 0, color = 'gray')
+```
+:::
+
+::: {.left .secondl}
+
+Las expectativas sobre el nivel de producción y empleo registraron los incrementos más importantes en esta medición, con saldos de 64.3 y 10.7, respectivamente. En ambos casos el saldo de opinión se encuentra por encima del promedio histórico, lo que denota un potencial dinamismo en los próximos tres meses.
+
+:::
+
+::: {.right .second}
+#### Expectativas de producción y empleo
+
+```{r, , fig.height=3, fig.width=5}
+dyg_empleo_produccion_exp |> dygraphs::dyLimit(limit = 0, color = 'gray')
+```
+:::
+:::
+
+<!-- ---------------------------------------------------------------------------------------------- -->
+
+### Confianza industrial y clima empresarial
+
+------------------------------------------------------------------------
+
+::: {.fourth-container}
+::: {.left .first}
+
+El Índice de Confianza Industrial (ICI) resume la actividad actual y las expectativas de actividad futura de las empresas del sector manufacturero en base a variables observables de las empresas. Este indicador mostró una recuperación en julio, para un resultado de 60.5. La evolución del indicador se explica principalmente por la evolución de los pedidos.
+
+:::
+
+::: {.right .first}
+#### Indicador de Confianza Industrial
+
+```{r, fig.height=3, fig.width=5}
+dyg_ici 
+```
+:::
+
+::: {.left .secondl}
+
+Asimismo, la percepción que tienen los empresarios del sector acerca de la situación económica actual y futura de sus empresas se sintetiza a través del Indicador de Clima Empresarial (ICE). En este sondeo el indicador se vuelve a su nivel máximo de lo que va de año, con un resultado de 51.7.
+
+:::
+
+::: {.right .second}
+#### Indicador de Clima Empresarial
+
+```{r, fig.height=3, fig.width=5}
+dyg_ice
+```
+:::
+:::
+
+<!-- ---------------------------------------------------------------------------------------------- -->
+
+::: {.cuadro-resumen}
+### Cuadro resumen
+
+------------------------------------------------------------------------
+
+```{r}
+eoe_tabla_resumen()
+```
+:::
